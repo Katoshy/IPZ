@@ -4,22 +4,47 @@
 namespace IPZ
 {
     class Image { }
-    class AI_Algorithm
+    class Location { }
+    class ArchitectureStyle { }
+    class Building
     {
-
+        String Name;
+        String Description;
+        Location Location;
+        ArchitectureStyle ArchitectureStyle;
     }
-    class RealTimeGenerator
+    class Display { }
+    class Data { }
+    public class AI_Algorithm
     {
-
+        Data data;
+        public void DataAnalys() { }
     }
-    class QuerryExecutor
+    public class RealTimeGenerator
     {
-
+        public void GetStateByTime() { }
+        public void GenerateRealTimeObject() { }
     }
-    class Account
+    abstract class Account // абстрактный клас сделан что-бы каждый пользователь имел аккаунт , 
+    // а уже потом мы присваеваем абстрактному акаунту один из вариантов (модер или стандарт)
     {
         String Name;
         int ID;
+        Post[] MyPotsts;
+        Post[] Saved;
+        void AddPost(Post post) { }
+        void SavePost(Post post) { }
+    }
+    class StandartAccount : Account { } 
+    class ModerAccount : Account
+    {
+        void ApproveBuilding() { }
+        void ApprovePost() { }
+        void DeclineBuilding() { }
+        void DeclinePost() { }
+        void EditBuilding() { }
+        void EditPost() { }
+        void EditComment() { }
     }
     class Post
     {
@@ -27,6 +52,8 @@ namespace IPZ
         Image[] Images;
         Comment [] Comments;
         String Description;
+        void AddComment(Comment comment) { }
+        void LoadComment(Comment comment) { }
     }
     class Comment
     {
@@ -37,20 +64,35 @@ namespace IPZ
     {
         Account account;
         void Regestration() { }
-        void Scanning() { }
-        void ARView() { }
-        void PostView() { }
+        void Scanning(CameraView camera) 
+        {
+            AI_Algorithm Alg = new AI_Algorithm();
+            camera.MakePhoto();
+            Alg.DataAnalys();
+            camera.Display();
+        }
+        void ARView() 
+        {
+            CameraView camera = new CameraView();
+            RealTimeGenerator ar = new RealTimeGenerator();
+            ar.GenerateRealTimeObject();
+            ar.GetStateByTime();
+            camera.Display();
+        }
         void CreatePost() { }
-        void CreateComment() { }
+        void CreateComment(Post post) { }
+        void AddBuilding(Data data) { }
     }
     class CameraView
     {
-
+        public void Display() { }
+        public void MakePhoto() { }
     }
     class Program
     {
         static void Main(string[] args)
         {
+
         }
     }
 }
